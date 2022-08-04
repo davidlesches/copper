@@ -7,7 +7,7 @@ class ConnectTest < Minitest::Test
     # get_uri is aliased in Helpers
     uri = get_uri("test_api", 14)
 
-    assert_equal "https://api.prosperworks.com/developer_api/v1/test_api/14", uri.to_s
+    assert_equal "https://api.copper.com/developer_api/v1/test_api/14", uri.to_s
   end
 
   def test_bad_request_response

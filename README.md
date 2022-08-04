@@ -1,15 +1,15 @@
 # Copper-Ruby
 
-A lightweight wrapper for interacting with the [Copper Developer API](https://www.prosperworks.com/developer_api).
+A lightweight wrapper for interacting with the [Copper Developer API](https://www.copper.com/developer_api).
 
-[![Build Status](https://travis-ci.org/soccernee/prosperworks-ruby.svg?branch=master)](https://travis-ci.org/soccernee/prosperworks-ruby)
+[![Build Status](https://travis-ci.org/soccernee/copper-ruby.svg?branch=master)](https://travis-ci.org/soccernee/copper-ruby)
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'prosperworks-ruby'
+gem 'copper-ruby'
 ```
 
 And then execute:
@@ -18,7 +18,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install prosperworks-ruby
+    $ gem install copper-ruby
 
 ## Usage
 
@@ -105,7 +105,7 @@ The following entity types are currently supported for list:
 * Pipeline Stage
 * Webhook
 
-The response will either be an instance of `Copper::Errors`, or the entity itself. See the `handle_response` function in [connect.rb](lib/prosperworks/api_operations/connect.rb).
+The response will either be an instance of `Copper::Errors`, or the entity itself. See the `handle_response` function in [connect.rb](lib/copper/api_operations/connect.rb).
 
 
 ## Development
@@ -130,7 +130,7 @@ To install this gem onto your local machine, run `bundle exec rake install`.
 
 This gem is fairly new, and can benefit from contributions!
 
-You can take a look at the [issues](https://github.com/soccernee/prosperworks-ruby/issues) and start by contributing there.
+You can take a look at the [issues](https://github.com/soccernee/copper-ruby/issues) and start by contributing there.
 
 Wishlist
 - [X] continuous integration setup
@@ -145,7 +145,7 @@ Wishlist
 - [ ] Support for Nested Resources
 
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/soccernee/prosperworks-ruby. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/soccernee/copper-ruby. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 To run the tests:
 ```
@@ -158,4 +158,4 @@ The gem is available as open source under the terms of the [MIT License](http://
 
 ## Code of Conduct
 
-Everyone interacting in the Prosperworks::Ruby project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/soccernee/prosperworks-ruby/blob/master/CODE_OF_CONDUCT.md).
+Everyone interacting in the Prosperworks::Ruby project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/soccernee/copper-ruby/blob/master/CODE_OF_CONDUCT.md).

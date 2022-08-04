@@ -1,5 +1,5 @@
 $LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)
-require 'prosperworks'
+require 'copper'
 
 require "minitest/autorun"
 require 'minitest/unit'
@@ -32,7 +32,7 @@ module Helpers
   # TODO: should instead call Copper::ApiOperations::Connect.get_uri
   # but I can't figure out how to do that
   def get_uri(api_name, id = nil)
-    base_url = "https://api.prosperworks.com/developer_api/v1/"
+    base_url = "https://api.copper.com/developer_api/v1/"
     url = base_url + "#{api_name}"
     url = url + "/#{id}" unless id.nil?
     URI.parse(url)

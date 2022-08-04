@@ -47,6 +47,7 @@ module Copper
               entity.send("#{key}=", value)
             end
           end
+
           entity
         when Errors::BadRequest.status_code
           Errors::BadRequest.new
