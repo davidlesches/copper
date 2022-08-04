@@ -4,7 +4,7 @@ class OpportunityTest < Minitest::Test
   include Helpers
 
   def verify_response(expected, opportunity)
-    assert opportunity.is_a?(ProsperWorks::Opportunity)
+    assert opportunity.is_a?(Copper::Opportunity)
     assert_equal @id, opportunity.id
     assert_equal expected.keys.length, opportunity.instance_variables.length
 
@@ -20,21 +20,21 @@ class OpportunityTest < Minitest::Test
 
   def setup
     @id = opportunity_details[:id]
-    @single_resource_url = get_uri(ProsperWorks::Opportunity.api_name, @id)
-    @create_url = get_uri(ProsperWorks::Opportunity.api_name)
+    @single_resource_url = get_uri(Copper::Opportunity.api_name, @id)
+    @create_url = get_uri(Copper::Opportunity.api_name)
   end
 
   def test_opportunity_get
     stub_request(:get, @single_resource_url).with(headers: headers).to_return(status: 200, body: opportunity_payload)
 
-    opportunity = ProsperWorks::Opportunity.find(@id)
+    opportunity = Copper::Opportunity.find(@id)
     verify_response(opportunity_details, opportunity)
   end
 
   def test_opportunity_create
     stub_request(:post, @create_url).with(headers: headers).to_return(status: 200, body: opportunity_payload)
 
-    opportunity = ProsperWorks::Opportunity.create(opportunity_details)
+    opportunity = Copper::Opportunity.create(opportunity_details)
     verify_response(opportunity_details, opportunity)
   end
 
@@ -47,11 +47,11 @@ class OpportunityTest < Minitest::Test
       pipeline_id: 1_501
     }
 
-    opportunity = ProsperWorks::Opportunity.new(initial_attributes)
+    opportunity = Copper::Opportunity.new(initial_attributes)
     assert_equal initial_attributes[:name], opportunity.name
     assert_equal initial_attributes[:pipeline_id], opportunity.pipeline_id
 
-    response = ProsperWorks::Opportunity.update(opportunity, opportunity_details)
+    response = Copper::Opportunity.update(opportunity, opportunity_details)
     verify_response(opportunity_details, opportunity)
   end
 
@@ -62,8 +62,8 @@ class OpportunityTest < Minitest::Test
     })
     stub_request(:delete, @single_resource_url).with(headers: headers).to_return(status: 200, body: delete_payload)
 
-    opportunity = ProsperWorks::Opportunity.new(opportunity_details)
-    response = ProsperWorks::Opportunity.delete(opportunity.id)
+    opportunity = Copper::Opportunity.new(opportunity_details)
+    response = Copper::Opportunity.delete(opportunity.id)
 
     expected_result = {
       "id" => opportunity.id,

@@ -1,6 +1,6 @@
-# ProsperWorks-Ruby
+# Copper-Ruby
 
-A lightweight wrapper for interacting with the [ProsperWorks Developer API](https://www.prosperworks.com/developer_api).
+A lightweight wrapper for interacting with the [Copper Developer API](https://www.prosperworks.com/developer_api).
 
 [![Build Status](https://travis-ci.org/soccernee/prosperworks-ruby.svg?branch=master)](https://travis-ci.org/soccernee/prosperworks-ruby)
 
@@ -22,12 +22,12 @@ Or install it yourself as:
 
 ## Usage
 
-This gem offers basic operations to interact with the ProsperWorks Developer API. There is minimal error handling and no validation logic.
+This gem offers basic operations to interact with the Copper Developer API. There is minimal error handling and no validation logic.
 
 To use the proper credentials, the following must be run before using the gem:
 
 ```
-ProsperWorks.configure do |config|
+Copper.configure do |config|
   config.user_email = <your_user_email>
   config.access_token = <your_api_token>
 end
@@ -36,9 +36,9 @@ end
 ### Create
 
 ```
-person = ProsperWorks::Person.create(attributes)
+person = Copper::Person.create(attributes)
 
-opportunity = ProsperWorks::Opportunity.create({
+opportunity = Copper::Opportunity.create({
   pipeline_id: <some_id>,
   company_id: <another_id>,
   monetary_value: 1_000
@@ -49,9 +49,9 @@ opportunity = ProsperWorks::Opportunity.create({
 ### Find
 
 ```
-person = ProsperWorks::Person.find(id)
+person = Copper::Person.find(id)
 
-lead = ProsperWorks::Lead.find(423)
+lead = Copper::Lead.find(423)
 ```
 
 ### Update
@@ -60,7 +60,7 @@ For update, either update the object in advance:
 
 ```
 person.name = "A New Name"
-response = ProsperWorks::Person.update(person)
+response = Copper::Person.update(person)
 ```
 
 or pass in a hash of attributes to update:
@@ -69,26 +69,26 @@ or pass in a hash of attributes to update:
 attributes = {
   name: "A New Name"
 }
-response = ProsperWorks::Person.update(person, attributes)
+response = Copper::Person.update(person, attributes)
 
 ```
 
 ### Delete
 
 ```
-response = ProsperWorks::Person.delete(person.id)
+response = Copper::Person.delete(person.id)
 
 ```
 ### Search
 
 ```
-response = ProsperWorks::Person.search(name: "John Doe")
+response = Copper::Person.search(name: "John Doe")
 ```
 
 ### List
 
 ```
-webhooks = ProsperWorks::Webhook.list
+webhooks = Copper::Webhook.list
 ```
 
 The following entity types are currently supported for create, find, update, delete and search:
@@ -105,7 +105,7 @@ The following entity types are currently supported for list:
 * Pipeline Stage
 * Webhook
 
-The response will either be an instance of `ProsperWorks::Errors`, or the entity itself. See the `handle_response` function in [connect.rb](lib/prosperworks/api_operations/connect.rb).
+The response will either be an instance of `Copper::Errors`, or the entity itself. See the `handle_response` function in [connect.rb](lib/prosperworks/api_operations/connect.rb).
 
 
 ## Development
@@ -114,7 +114,7 @@ After checking out the repo, run `bin/setup` to install dependencies. Then, run 
 
 ### `bin/console`
 
-To use the gem in an interactive Ruby shell, you can run `bin/console`. To include your ProsperWorks API credentials (`user_name` and `access_token`) you can either:
+To use the gem in an interactive Ruby shell, you can run `bin/console`. To include your Copper API credentials (`user_name` and `access_token`) you can either:
 
 1. Use ENV variables:
 ```

@@ -8,7 +8,7 @@ require 'webmock/minitest'
 
 class Minitest::Test
   def before_setup
-    ProsperWorks.configure do |config|
+    Copper.configure do |config|
       config.user_email = "test@test.test"
       config.access_token = "123456789ABCDEFGHI"
     end
@@ -29,7 +29,7 @@ module Helpers
     }
   end
 
-  # TODO: should instead call ProsperWorks::ApiOperations::Connect.get_uri
+  # TODO: should instead call Copper::ApiOperations::Connect.get_uri
   # but I can't figure out how to do that
   def get_uri(api_name, id = nil)
     base_url = "https://api.prosperworks.com/developer_api/v1/"
@@ -263,7 +263,7 @@ module Helpers
       },
       assignee_id: 100,
       company_id: 300,
-      company_name: "ProsperWorks Inc.",
+      company_name: "Copper Inc.",
       contact_type_id: 1_100,
       details: "some details",
       emails: [{"email"=>"test@test.test","category"=>"work"}],

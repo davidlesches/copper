@@ -12,57 +12,57 @@ class ConnectTest < Minitest::Test
 
   def test_bad_request_response
     id = 2
-    url = get_uri(ProsperWorks::Person.api_name, id)
+    url = get_uri(Copper::Person.api_name, id)
     stub_request(:get, url).with(headers: headers).to_return(status: 400, body: "")
 
-    assert ProsperWorks::Person.find(id).is_a?(ProsperWorks::Errors::BadRequest)
+    assert Copper::Person.find(id).is_a?(Copper::Errors::BadRequest)
   end
 
   def test_forbidden_response
     id = 2
-    url = get_uri(ProsperWorks::Person.api_name, id)
+    url = get_uri(Copper::Person.api_name, id)
     stub_request(:get, url).with(headers: headers).to_return(status: 403, body: "")
 
-    assert ProsperWorks::Person.find(id).is_a?(ProsperWorks::Errors::Forbidden)
+    assert Copper::Person.find(id).is_a?(Copper::Errors::Forbidden)
   end
 
   def test_not_found_response
     id = 2
-    url = get_uri(ProsperWorks::Person.api_name, id)
+    url = get_uri(Copper::Person.api_name, id)
     stub_request(:get, url).with(headers: headers).to_return(status: 404, body: "")
 
-    assert ProsperWorks::Person.find(id).is_a?(ProsperWorks::Errors::NotFound)
+    assert Copper::Person.find(id).is_a?(Copper::Errors::NotFound)
   end
 
   def test_rate_limit_response
     id = 2
-    url = get_uri(ProsperWorks::Person.api_name, id)
+    url = get_uri(Copper::Person.api_name, id)
     stub_request(:get, url).with(headers: headers).to_return(status: 429, body: "")
 
-    assert ProsperWorks::Person.find(id).is_a?(ProsperWorks::Errors::RateLimit)
+    assert Copper::Person.find(id).is_a?(Copper::Errors::RateLimit)
   end
 
   def test_server_error_response
     id = 2
-    url = get_uri(ProsperWorks::Person.api_name, id)
+    url = get_uri(Copper::Person.api_name, id)
     stub_request(:get, url).with(headers: headers).to_return(status: 500, body: "")
 
-    assert ProsperWorks::Person.find(id).is_a?(ProsperWorks::Errors::ServerError)
+    assert Copper::Person.find(id).is_a?(Copper::Errors::ServerError)
   end
 
   def test_unauthorized_response
     id = 2
-    url = get_uri(ProsperWorks::Person.api_name, id)
+    url = get_uri(Copper::Person.api_name, id)
     stub_request(:get, url).with(headers: headers).to_return(status: 401, body: "")
 
-    assert ProsperWorks::Person.find(id).is_a?(ProsperWorks::Errors::Unauthorized)
+    assert Copper::Person.find(id).is_a?(Copper::Errors::Unauthorized)
   end
 
   def test_unprocessable_response
     id = 2
-    url = get_uri(ProsperWorks::Person.api_name, id)
+    url = get_uri(Copper::Person.api_name, id)
     stub_request(:get, url).with(headers: headers).to_return(status: 422, body: "")
 
-    assert ProsperWorks::Person.find(id).is_a?(ProsperWorks::Errors::Unprocessable)
+    assert Copper::Person.find(id).is_a?(Copper::Errors::Unprocessable)
   end
 end

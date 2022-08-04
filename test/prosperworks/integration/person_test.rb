@@ -4,7 +4,7 @@ class PersonTest < Minitest::Test
   include Helpers
 
   def verify_response(expected, person)
-    assert person.is_a?(ProsperWorks::Person)
+    assert person.is_a?(Copper::Person)
     assert_equal @id, person.id
     assert_equal expected.keys.length, person.instance_variables.length
 
@@ -20,21 +20,21 @@ class PersonTest < Minitest::Test
 
   def setup
     @id = person_details[:id]
-    @single_resource_url = get_uri(ProsperWorks::Person.api_name, @id)
-    @create_url = get_uri(ProsperWorks::Person.api_name)
+    @single_resource_url = get_uri(Copper::Person.api_name, @id)
+    @create_url = get_uri(Copper::Person.api_name)
   end
 
   def test_person_get
     stub_request(:get, @single_resource_url).with(headers: headers).to_return(status: 200, body: person_payload)
 
-    person = ProsperWorks::Person.find(@id)
+    person = Copper::Person.find(@id)
     verify_response(person_details, person)
   end
 
   def test_person_create
     stub_request(:post, @create_url).with(headers: headers).to_return(status: 200, body: person_payload)
 
-    person = ProsperWorks::Person.create(person_details)
+    person = Copper::Person.create(person_details)
     verify_response(person_details, person)
   end
 
@@ -47,11 +47,11 @@ class PersonTest < Minitest::Test
       title: "Thinker"
     }
 
-    person = ProsperWorks::Person.new(initial_attributes)
+    person = Copper::Person.new(initial_attributes)
     assert_equal initial_attributes[:name], person.name
     assert_equal initial_attributes[:title], person.title
 
-    response = ProsperWorks::Person.update(person, person_details)
+    response = Copper::Person.update(person, person_details)
     verify_response(person_details, person)
   end
 
@@ -62,8 +62,8 @@ class PersonTest < Minitest::Test
     })
     stub_request(:delete, @single_resource_url).with(headers: headers).to_return(status: 200, body: delete_payload)
 
-    person = ProsperWorks::Person.new(person_details)
-    response = ProsperWorks::Person.delete(person.id)
+    person = Copper::Person.new(person_details)
+    response = Copper::Person.delete(person.id)
 
     expected_result = {
       "id" => person.id,

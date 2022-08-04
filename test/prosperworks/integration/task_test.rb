@@ -4,7 +4,7 @@ class TaskTest < Minitest::Test
   include Helpers
 
   def verify_response(expected, task)
-    assert task.is_a?(ProsperWorks::Task)
+    assert task.is_a?(Copper::Task)
     assert_equal @id, task.id
     assert_equal expected.keys.length, task.instance_variables.length
 
@@ -20,21 +20,21 @@ class TaskTest < Minitest::Test
 
   def setup
     @id = task_details[:id]
-    @single_resource_url = get_uri(ProsperWorks::Task.api_name, @id)
-    @create_url = get_uri(ProsperWorks::Task.api_name)
+    @single_resource_url = get_uri(Copper::Task.api_name, @id)
+    @create_url = get_uri(Copper::Task.api_name)
   end
 
   def test_task_get
     stub_request(:get, @single_resource_url).with(headers: headers).to_return(status: 200, body: task_payload)
 
-    task = ProsperWorks::Task.find(@id)
+    task = Copper::Task.find(@id)
     verify_response(task_details, task)
   end
 
   def test_task_create
     stub_request(:post, @create_url).with(headers: headers).to_return(status: 200, body: task_payload)
 
-    task = ProsperWorks::Task.create(task_details)
+    task = Copper::Task.create(task_details)
     verify_response(task_details, task)
   end
 
@@ -46,10 +46,10 @@ class TaskTest < Minitest::Test
       name: "some initial name"
     }
 
-    task = ProsperWorks::Task.new(initial_attributes)
+    task = Copper::Task.new(initial_attributes)
     assert_equal initial_attributes[:name], task.name
 
-    response = ProsperWorks::Task.update(task, task_details)
+    response = Copper::Task.update(task, task_details)
     verify_response(task_details, task)
   end
 
@@ -60,8 +60,8 @@ class TaskTest < Minitest::Test
     })
     stub_request(:delete, @single_resource_url).with(headers: headers).to_return(status: 200, body: delete_payload)
 
-    task = ProsperWorks::Task.new(task_details)
-    response = ProsperWorks::Task.delete(task.id)
+    task = Copper::Task.new(task_details)
+    response = Copper::Task.delete(task.id)
 
     expected_result = {
       "id" => task.id,

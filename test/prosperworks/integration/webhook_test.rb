@@ -4,7 +4,7 @@ class WebhookTest < Minitest::Test
   include Helpers
 
   def verify_response(expected, webhook)
-    assert webhook.is_a?(ProsperWorks::Webhook)
+    assert webhook.is_a?(Copper::Webhook)
     assert_equal expected[:id], webhook.id
     assert_equal expected.keys.length, webhook.instance_variables.length
 
@@ -20,14 +20,14 @@ class WebhookTest < Minitest::Test
 
   def setup
     @id = webhook_details[:id]
-    @single_resource_url = get_uri(ProsperWorks::Webhook.api_name, @id)
-    @list_url = get_uri(ProsperWorks::Webhook.api_name)
+    @single_resource_url = get_uri(Copper::Webhook.api_name, @id)
+    @list_url = get_uri(Copper::Webhook.api_name)
   end
 
   def test_webhook_get
     stub_request(:get, @single_resource_url).with(headers: headers).to_return(status: 200, body: webhook_payload)
 
-    webhook = ProsperWorks::Webhook.find(@id)
+    webhook = Copper::Webhook.find(@id)
 
     verify_response(webhook_details, webhook)
   end
@@ -52,7 +52,7 @@ class WebhookTest < Minitest::Test
     ]
     stub_request(:get, @list_url).with(headers: headers).to_return(status: 200, body: JSON.generate(multiple_webhooks))
 
-    webhooks = ProsperWorks::Webhook.list
+    webhooks = Copper::Webhook.list
 
     webhooks.each_with_index do |webhook, i|
       verify_response(multiple_webhooks[i], webhook)

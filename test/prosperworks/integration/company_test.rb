@@ -4,7 +4,7 @@ class CompanyTest < Minitest::Test
   include Helpers
 
   def verify_response(expected, company)
-    assert company.is_a?(ProsperWorks::Company)
+    assert company.is_a?(Copper::Company)
     assert_equal expected[:id], company.id
     assert_equal expected.keys.length, company.instance_variables.length
 
@@ -20,15 +20,15 @@ class CompanyTest < Minitest::Test
 
   def setup
     @id = company_details[:id]
-    @single_resource_url = get_uri(ProsperWorks::Company.api_name, @id)
-    @create_url = get_uri(ProsperWorks::Company.api_name)
-    @search_url = get_uri(ProsperWorks::Company.api_name, 'search')
+    @single_resource_url = get_uri(Copper::Company.api_name, @id)
+    @create_url = get_uri(Copper::Company.api_name)
+    @search_url = get_uri(Copper::Company.api_name, 'search')
   end
 
   def test_company_get
     stub_request(:get, @single_resource_url).with(headers: headers).to_return(status: 200, body: company_payload)
 
-    company = ProsperWorks::Company.find(@id)
+    company = Copper::Company.find(@id)
     verify_response(company_details, company)
   end
 
@@ -36,7 +36,7 @@ class CompanyTest < Minitest::Test
     stub_request(:post, @search_url).with(headers: headers)
                                     .to_return(status: 200, body: company_search_results_payload)
 
-    companies = ProsperWorks::Company.search
+    companies = Copper::Company.search
     company_search_result_details.zip(companies).each do |company_details, company|
       verify_response(company_details, company)
     end
@@ -45,7 +45,7 @@ class CompanyTest < Minitest::Test
   def test_company_create
     stub_request(:post, @create_url).with(headers: headers).to_return(status: 200, body: company_payload)
 
-    company = ProsperWorks::Company.create(company_details)
+    company = Copper::Company.create(company_details)
     verify_response(company_details, company)
   end
 
@@ -57,10 +57,10 @@ class CompanyTest < Minitest::Test
       name: "some initial name"
     }
 
-    company = ProsperWorks::Company.new(initial_attributes)
+    company = Copper::Company.new(initial_attributes)
     assert_equal initial_attributes[:name], company.name
 
-    response = ProsperWorks::Company.update(company, company_details)
+    response = Copper::Company.update(company, company_details)
     verify_response(company_details, company)
   end
 
@@ -71,8 +71,8 @@ class CompanyTest < Minitest::Test
     })
     stub_request(:delete, @single_resource_url).with(headers: headers).to_return(status: 200, body: delete_payload)
 
-    company = ProsperWorks::Company.new(company_details)
-    response = ProsperWorks::Company.delete(company.id)
+    company = Copper::Company.new(company_details)
+    response = Copper::Company.delete(company.id)
 
     expected_result = {
       "id" => company.id,

@@ -4,7 +4,7 @@ class LeadTest < Minitest::Test
   include Helpers
 
   def verify_response(expected, lead)
-    assert lead.is_a?(ProsperWorks::Lead)
+    assert lead.is_a?(Copper::Lead)
     assert_equal @id, lead.id
     assert_equal expected.keys.length, lead.instance_variables.length
 
@@ -20,21 +20,21 @@ class LeadTest < Minitest::Test
 
   def setup
     @id = lead_details[:id]
-    @single_resource_url = get_uri(ProsperWorks::Lead.api_name, @id)
-    @create_url = get_uri(ProsperWorks::Lead.api_name)
+    @single_resource_url = get_uri(Copper::Lead.api_name, @id)
+    @create_url = get_uri(Copper::Lead.api_name)
   end
 
   def test_lead_get
     stub_request(:get, @single_resource_url).with(headers: headers).to_return(status: 200, body: lead_payload)
 
-    lead = ProsperWorks::Lead.find(@id)
+    lead = Copper::Lead.find(@id)
     verify_response(lead_details, lead)
   end
 
   def test_lead_create
     stub_request(:post, @create_url).with(headers: headers).to_return(status: 200, body: lead_payload)
 
-    lead = ProsperWorks::Lead.create(lead_details)
+    lead = Copper::Lead.create(lead_details)
     verify_response(lead_details, lead)
   end
 
@@ -47,11 +47,11 @@ class LeadTest < Minitest::Test
       title: "Thinker"
     }
 
-    lead = ProsperWorks::Lead.new(initial_attributes)
+    lead = Copper::Lead.new(initial_attributes)
     assert_equal initial_attributes[:name], lead.name
     assert_equal initial_attributes[:title], lead.title
 
-    response = ProsperWorks::Lead.update(lead, lead_details)
+    response = Copper::Lead.update(lead, lead_details)
     verify_response(lead_details, lead)
   end
 
@@ -62,8 +62,8 @@ class LeadTest < Minitest::Test
     })
     stub_request(:delete, @single_resource_url).with(headers: headers).to_return(status: 200, body: delete_payload)
 
-    lead = ProsperWorks::Lead.new(lead_details)
-    response = ProsperWorks::Lead.delete(lead.id)
+    lead = Copper::Lead.new(lead_details)
+    response = Copper::Lead.delete(lead.id)
 
     expected_result = {
       "id" => lead.id,
