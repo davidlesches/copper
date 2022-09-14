@@ -1,6 +1,6 @@
 module Copper
   module Errors
-    class Base
+    class Base < StandardError
 
       def self.status_code
         raise "NotImplemented: Subclass must define status code"

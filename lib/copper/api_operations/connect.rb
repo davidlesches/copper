@@ -50,19 +50,19 @@ module Copper
 
           entity
         when Errors::BadRequest.status_code
-          Errors::BadRequest.new
+          raise Errors::BadRequest
         when Errors::Unauthorized.status_code
-          Errors::Unauthorized.new
+          raise Errors::Unauthorized
         when Errors::Forbidden.status_code
-          Errors::Forbidden.new
+          raise Errors::Forbidden
         when Errors::NotFound.status_code
-          Errors::NotFound.new
+          raise Errors::NotFound
         when Errors::Unprocessable.status_code
-          Errors::Unprocessable.new
+          raise(Errors::Unprocessable, response.body.to_s)
         when Errors::RateLimit.status_code
-          Errors::RateLimit.new
+          raise Errors::RateLimit
         else
-          Errors::ServerError.new
+          raise Errors::ServerError
         end
       end
 
