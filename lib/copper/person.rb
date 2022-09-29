@@ -31,5 +31,15 @@ module Copper
       handle_response(new, response)
     end
 
+    def self.relate_to_company(person_id, company_id)
+      url = client.base_url + "#{api_name}" + "/#{person_id}/related"
+      uri = URI.parse(url)
+
+      attributes = { resource: { type: 'company', id: company_id } }
+      response   = send_request("post", uri, attributes)
+
+      handle_response(self.new, response)
+    end
+
   end
 end
